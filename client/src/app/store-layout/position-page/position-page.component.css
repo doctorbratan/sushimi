@@ -1,0 +1,503 @@
+main {
+    padding-top: 90px;
+    padding-bottom: 75px;
+    width: 100%;
+    min-height: calc(100vh - 155px);
+    font-family: 'Montserrat';
+    color: white;
+    display: flex;
+}
+
+/* Редактирование Позиции */
+
+#main-info-container {
+    flex: 0.5;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.position-name {
+    margin: 0;
+    padding: 10px;
+    border: 1px solid white;
+}
+
+.position-image {
+    width: 90%;
+    max-width: 400px;
+}
+
+p {
+    text-align: center;
+}
+
+#main-options-container {
+    flex: 1;
+    display: flex;
+}
+
+h1 {
+    font-size: 20px;
+}
+
+.kit {
+    flex: 1;
+}
+
+.kit-name {
+    border-bottom: 1px solid white;
+}
+
+.option-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.option {
+    margin-top: 15px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #D6222D;
+    background-color: rgba(255, 255, 255, 0);
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option-selected {
+    margin-top: 15px;
+    padding: 10px;
+    text-align: center;
+    background-color: #D6222D;
+    border: 1px solid #D6222D;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option-hr {
+    border: 1px solid white;
+    background-color: white;
+    width: 80%;
+}
+
+b {
+    font-size: 10px;
+}
+
+#main-add-container {
+    flex: 0.5;
+    border-left: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.edit-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-title {
+    width: 80%;
+    border-top: 1px solid #D6222D;
+}
+
+.quantity-span {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.quantity-controller {
+    border: 1px solid #D6222D;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 5px 10px;
+    font-size: 24px;
+}
+
+.catch {
+    padding: 15px;
+    font-size: 20px;
+    border: 1px solid #D6222D;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.catch:hover {
+    background-color: #D6222D;
+}
+
+/* Редактирование Позиции */
+
+#loading {
+    padding-top: 90px;
+    padding-bottom: 75px;
+    width: 100%;
+    min-height: calc(100vh - 155px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message {
+    font-family: 'Montserrat';
+    color: green;
+}
+
+#message {
+    padding-top: 90px;
+    padding-bottom: 75px;
+    width: 100%;
+    min-height: calc(100vh - 155px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Montserrat';
+}
+
+#exit {
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #D6222D;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.recomendation-container {
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.recomendation {
+    margin: 10px;
+    border: 1px solid white;
+    padding: 10px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recomendation-image {
+    width: 150px;
+}
+
+.basket {
+    position: relative;
+    padding: 10px;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #D6222D;
+    border-radius: 15px;
+    user-select: none;
+    transition-duration: 0,4s;
+    -webkit-transition-duration: 0.4s;
+}
+
+.basket:hover {
+    background-color: #D6222D;
+}
+
+.basket::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    box-shadow: 0 0 10px 40px #D6222D;
+}
+
+.basket:active::after {
+    box-shadow: 0 0 0 0#D6222D;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    transition: 0s;
+}
+
+.basket:active {
+    top: 1px;
+}
+
+h1, h2 ,h3 {
+    text-align: center;
+}
+
+
+@media screen and (max-width: 1025px) { 
+    
+
+    p {
+        text-align: center;
+    }
+    
+
+    h1 {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    b {
+        font-size: 8px;
+    }
+
+    main {
+        padding-top: 55px;
+        min-height: calc(100vh - 125px);
+        flex-direction: column;
+    }
+
+    #main-info-container {
+        padding-top: 10px;
+        flex: 0;
+        width: 100%;
+        border-right: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    
+    .position-name {
+        margin: 0;
+        padding: 10px;
+        border: 1px solid white;
+    }
+    
+    .position-image {
+        width: 200px;
+    }
+
+    #main-add-container {
+        padding: 10px 0px;
+        margin-top: 10px;
+        flex: 0;
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid white;
+        flex-direction: row;
+    }
+
+    .edit-container {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .edit-title {
+        width: auto;
+        border-top: 1px solid #D6222D;
+    }
+    
+    .quantity-span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    
+    .quantity-controller {
+        padding: 5px;
+        font-size: 14px;
+    }
+    
+    .catch {
+        padding: 12px;
+        font-size: 12px;
+    }
+
+    /* Options */
+
+    #main-options-container {
+        flex: 0;
+        display: flex;
+    }
+
+    #exit {
+        font-size: 16px;
+    }
+
+
+    .basket {
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+}
+
+
+@media screen and (max-width: 499px) { 
+
+    p {
+        text-align: center;
+    }
+    
+
+    h1 {
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 8px;
+    }
+
+    b {
+        font-size: 6px;
+    }
+
+    .position-name {
+        padding: 5px;
+    }
+    
+    .position-image {
+        width: 120px;
+    }
+
+    .edit-container {
+        width: 100px;
+    }
+    
+    .quantity-controller {
+        padding: 5px;
+        font-size: 8px;
+    }
+    
+    .catch {
+        padding: 15px 5px;
+        font-size: 8px;
+    }
+
+    /* Опции */
+
+    #main-options-container {
+        flex: 0;
+        width: 100%;
+    }
+
+    .kit {
+        flex: 1;
+    }
+
+    .kit-name {
+        font-size: 11px;
+    }
+
+    .option {
+        padding: 5px;
+    }
+    
+    .option-selected {
+        padding: 5px;
+    } 
+
+
+
+    /* Опции */
+
+    #message {
+        justify-content: flex-start;
+    }
+
+
+    #exit {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .recomendation {
+        padding: 5px;
+        min-width: 100px;
+    }
+
+    .recomendation-image {
+        width: 90px;
+    }
+    
+
+    .basket {
+        padding: 5px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+}
+
+@media screen and (max-width: 280px) { 
+
+    #main-options-container {
+        flex: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .kit {
+        flex: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .kit-name {
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px dashed white;
+    }
+    
+    .option-container {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    
+    .option {
+        padding: 5px;
+        margin: 10px;
+        width: 80px;
+    }
+    
+    .option-selected {
+        padding: 5px;
+        margin: 10px;
+        width: 80px;
+    } 
+    
+ }

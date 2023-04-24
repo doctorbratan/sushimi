@@ -1,0 +1,43 @@
+<main>
+    <form 
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()">
+
+        <span class="column">
+            <img src="../../assets/img/logo.svg" alt="Logo">
+            <h3>Личный Кабинет</h3>
+        </span>
+
+        <span class="column">
+            <label>Логин:</label>
+            &nbsp;
+            <input   
+            formControlName="login"
+            id="email"
+            type="text">
+
+        </span>
+
+        <span class="column">
+            <label>Пароль:</label>
+            &nbsp;
+            <span class="row">
+                <img src="../../assets//img/key.svg" id="key" alt="key">
+                &nbsp;&nbsp;
+                <input
+                type="password"
+                formControlName="password">
+            </span>
+            
+        </span>
+
+        <button
+        *ngIf="!form.invalid || !form.disabled"
+        type="submit"
+        >Войти</button>
+        <span *ngIf="error" class="column invalid">
+            <br>
+            {{error}}
+        </span>
+    </form>
+</main>

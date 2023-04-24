@@ -1,0 +1,33 @@
+header {
+    background-color: #151517;
+    color: white;
+    font-family: 'Gilroy';
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+img {
+    width: 130px;
+}
+
+#logout {
+    cursor: pointer;
+    width: 32px;
+}
+
+@media screen and (max-width: 1023px) {
+    
+    header {
+        padding: 10px 0px;
+        height: auto;
+    }
+
+    img {
+        width: 80px;
+    }
+
+}

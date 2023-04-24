@@ -1,0 +1,11 @@
+<header>
+    <img src="../../assets/img/logo.svg" alt="Логотип">
+    <span class="links">
+        <a [routerLink]="['/map']" routerLinkActive="active" >Редактирование</a>
+        <a>Статистика</a>
+        <a [routerLink]="['/order-history']" routerLinkActive="active" >История Чеков</a>
+        <a [routerLink]="['/orders']">Открытие заказы</a>
+    </span>
+    <img id="logout" src="../../assets/img/logout.svg" alt="Выйти" (click)="logout()">
+</header>
+<router-outlet></router-outlet>

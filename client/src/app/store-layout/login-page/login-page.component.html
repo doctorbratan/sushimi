@@ -1,0 +1,38 @@
+<main>
+    <form>
+
+        <span class="info">
+            <img src="../../../assets/img/logo.svg" alt="">
+            <h3>Мой Профиль</h3>
+        </span>
+        <ng-container  *ngIf="message">
+            <br>
+            <label class="error">{{message}}</label>
+            <br>
+        </ng-container>
+        <span class="info" style="width: 100%;">
+            <label>Номер Телефона:</label>
+            &nbsp;
+            <span class="input-container">
+                <b>+373</b>
+                &nbsp;&nbsp;&nbsp;
+                <input type="tel" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" required="true">
+            </span>
+        </span>
+
+        <span class="info" style="width: 100%;">
+            <label>Пароль:</label>
+            &nbsp;
+            <span class="input-container">
+                <img id="key" src="../../../assets/img/key.svg"  alt="Ключ">
+                &nbsp;&nbsp;&nbsp;
+                <input type="password" [ngModelOptions]="{standalone: true}" required="true" [(ngModel)]="password">
+            </span>
+        </span>
+
+        <button [disabled]="!phone && !password" (click)="login()">Войти</button>
+
+        <a [routerLink]="['/registration']" >Регистрация</a>
+        <br>
+    </form>
+</main>

@@ -1,0 +1,183 @@
+<main  *ngIf="orderService.order.list.length > 0">
+   <section class="positions-part">
+        <h1 class="title">Заказ:</h1>
+
+        <div *ngFor="let position of orderService.order.list; let i = index" class="position-cart">
+
+            <img [src]="position.imageSrc" [alt]="position.name">
+
+            <span class="info titles">
+                <h3>{{position.name}}</h3>
+                <span class="option-container" *ngIf="position.options.length > 0">
+                    <span *ngFor="let option of position.options" class="option">
+                        <b class="option-title ">{{option.title}}</b>
+                        <b>{{option.name}}</b>
+                    </span>
+                </span>
+            </span>
+
+
+            <span class="info price">
+
+                <span class="quantity-span" *ngIf="orderService.order.status === 'У Клиента' ">
+                    <button 
+                    *ngIf="!orderService.order._id"
+                    (click)="changeQuantity('-', position, i)"
+                    class="quantity-controller">-</button>
+                    <h3>{{position.quantity}}</h3>
+                    <button 
+                    *ngIf="!orderService.order._id"
+                    (click)="changeQuantity('+', position, i)"
+                    class="quantity-controller">+</button>
+                </span>
+
+                <h3> <span class="delete" (click)="deleteFromList(i)">✕</span>  &nbsp;&nbsp; {{position.total}} mdl   </h3>
+            </span>
+        </div>
+
+        <div class="about-price">
+            <h3 *ngIf="orderService.order.salle" class="total-price ">Итого: {{orderService.order.total}} mdl</h3>
+            <h3 *ngIf="orderService.order.salle" class="total-price ">Скидка: {{orderService.order.salle}} %</h3>
+            <h3 class="total-price ">К оплате: {{orderService.order.total_price}} mdl</h3>
+        </div>
+
+   </section>
+   <section class="information-part">
+
+        <span class="place-info"  #UserData>
+            <h1 class="place-title">Вкусные Суши:  &nbsp; <span style="color: red">{{orderService.selected_place.name}}</span></h1>
+            <ng-container  *ngIf="!orderService.order._id">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button [routerLink]="['/select-place']" id="change-place">Сменить</button>
+            </ng-container>
+          
+        </span>
+        <br>
+        <ng-container *ngIf="message">
+            <br>
+            <h3 class="message">{{message}}</h3>
+            <br><br>
+        </ng-container>
+
+        <span class="type-select" *ngIf="!orderService.order._id">
+            <label
+            [ngClass]= " orderService.order.type === 'Доставка' ? 'label-selected' : 'label-select' "
+            (click)=" orderService.order.type = 'Доставка' ; orderService.saveOrder() "
+            >
+                Доставка
+            </label>
+                <!-- <input type="radio" name="type" [(ngModel)]="orderService.order.type" value="Доставка" (change)="orderService.saveOrder()"> -->
+            <h3>/</h3>
+            <label
+            [ngClass]= " orderService.order.type === 'Самовывоз' ? 'label-selected' : 'label-select' "
+            (click)=" orderService.order.type = 'Самовывоз' ; orderService.saveOrder() "
+            >
+                Самовывоз
+            </label>
+                <!-- <input type="radio" name="type" [(ngModel)]="orderService.order.type" value="Самовывоз" (change)="orderService.saveOrder()"> -->
+        </span>
+
+        <label *ngIf="orderService.order._id" class="confim-info">{{orderService.order.type}}</label>
+
+        <br>
+        <span class="info" style="width: 99%;">
+            <label>Телефон:</label>
+            <span  *ngIf="!orderService.order._id" class="row" style="width: 100%;">
+                <label>+373</label>
+                &nbsp;
+                <label *ngIf="orderService.order.user._id" class="confim-info">{{orderService.order.user.phone}}</label>
+                <input *ngIf="!orderService.order.user._id" [(ngModel)]="orderService.order.user.phone" (change)="numberCheck()" class="user-input tel" type="tel">
+            </span>
+            <b *ngIf="orderService.order._id" class="confim-info">+373 {{orderService.order.user.phone}}</b>
+        </span>
+
+        <ng-container *ngIf="orderService.order.type == 'Доставка' ">
+            <br>
+            <span class="info" style="width: 99%;"> 
+                <label>Город доставки:</label>
+                <ng-container *ngIf="!orderService.order._id" >
+                    <select  [(ngModel)]="orderService.order.user.city" class="user-select" (change)="orderService.saveOrder(); cleanAddress()">
+                        <!-- <option [ngValue]="undefined">Выберите Город</option> -->
+                        <option *ngFor="let city of cities" [ngValue]="city._id" >{{city.name}} - {{city.cost}} mdl</option>
+                    </select>
+                </ng-container>
+                <label *ngIf="orderService.order._id" class="confim-info">{{orderService.order.user.city.name}} - {{orderService.order.user.city.cost}} mdl</label>
+            </span>
+    
+            <br>
+            <span class="info" style="width: 99%;">
+                <label>Адрес доставки:</label>
+                <ng-container  *ngIf="!orderService.order._id"  >
+                    <input [(ngModel)]="orderService.order.user.address"
+                    class="user-input address" type="text" (change)="orderService.saveOrder()">
+                </ng-container>
+                <label *ngIf="orderService.order._id" class="confim-info">{{orderService.order.user.address}}</label>
+            </span>
+            <br>
+            <a target="_blank" href="/docs/Политика Данных.pdf">Политика обработки персональных данных</a>
+            <br>
+        </ng-container>
+        <ng-container *ngIf="orderService.order.type == 'Самовывоз' ">
+
+            <br>
+            <span class="info user-data">
+                <label>Место Выдачи:</label>
+                <label class="confim-info">{{orderService.selected_place.address}}</label>
+            </span>
+    
+        </ng-container>
+        &nbsp;
+        <span class="type-select" *ngIf="!orderService.order._id">
+            <label
+            [ngClass]= " orderService.order.payment === 'Наличные' ? 'label-selected' : 'label-select' "
+            (click)=" orderService.order.payment = 'Наличные' ; orderService.saveOrder() "
+            >Наличные</label>
+            <!-- <input type="radio" name="payment" [(ngModel)]="orderService.order.payment" value="Наличные" (change)="orderService.saveOrder()"> -->
+            <h3>/</h3>
+            <label
+            [ngClass]= " orderService.order.payment === 'Картой' ? 'label-selected' : 'label-select' "
+            (click)=" orderService.order.payment = 'Картой' ; orderService.saveOrder() "
+            >
+                Картой
+            </label>
+            <!-- <input type="radio" name="payment" [(ngModel)]="orderService.order.payment" value="Картой" (change)="orderService.saveOrder()"> -->
+        </span>
+        <label *ngIf="orderService.order._id" >Оплата: <label class="confim-info">{{orderService.order.payment}}</label>  </label>
+
+        <br><br>
+        <span  *ngIf="!orderService.order._id" class="info user-data" style="width: 99%;">
+            <label>Комментарий:</label>
+            <textarea [(ngModel)]="orderService.order.note" 
+            class="user-note" cols="30" rows="5" (change)="orderService.saveOrder()"></textarea>
+        </span>
+        <span  *ngIf="orderService.order._id && orderService.order.note" class="info user-data" style="width: 99%;">
+            <label>Комментарий:</label>
+            <label class="confim-info">{{orderService.order.note}}</label>
+        </span>
+        <br>
+        <span *ngIf="orderService.order._id"  class="info user-data" style="width: 99%;">
+            <label class="registration">Зарегистрируйтесь <br> для <br> автоматического подтверждения</label>
+            &nbsp;&nbsp;
+            <label>Код подтверждения с смс:</label>
+            <input 
+            [(ngModel)]="verification_code"
+            class="verification-code" type="text">
+            &nbsp;&nbsp;
+            <button *ngIf="verification_code && !pennding" class="catch" (click)="confim()">Подтвердить</button>
+        </span>
+
+        <br><br>
+
+        <button 
+        *ngIf="!orderService.order._id"
+        class="catch" (click)="catch()">Заказать</button>
+        <br>
+        <button  (click)="clearOrder()" class="catch">Отменить Заказ</button>
+   
+
+   </section>
+</main>
+<div id="empty" *ngIf="orderService.order.list.length == 0">
+    <h3 *ngIf="global_message" class="global-message">{{global_message}}</h3>
+    <h1 class="title" [routerLink]="['/menu']"  >Начните ваш список покупок</h1>
+</div>

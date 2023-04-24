@@ -1,0 +1,47 @@
+main {
+    padding-top: 85px;
+    padding-bottom: 70px;
+    width: 100%;
+    min-height: 80vh;
+    font-family: 'Montserrat';
+    display: flex;
+}
+
+section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone-select {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin: 5px;
+    border: 1px solid #D6222D;
+    border-radius: 15px;
+    background-color: #D6222D;
+    font-size: 16px;
+    padding: 10px;
+    min-width: 150px;
+}
+
+.phone-select:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+@media screen and (max-width: 499px) { 
+
+    main {
+        height: calc(100vh - 125px);
+        font-family: 'Montserrat';
+    }
+
+    section {
+        padding-top: 20%;
+        justify-content: flex-start;
+    }
+    
+}

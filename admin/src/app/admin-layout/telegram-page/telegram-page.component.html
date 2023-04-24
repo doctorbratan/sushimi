@@ -1,0 +1,58 @@
+<main>
+
+    <div class="loader" *ngIf="loading">
+        <loader></loader>
+    </div>
+
+    <ng-container *ngIf="!loading" >
+        <div *ngFor="let telegram of telegrams" class="teelgram-container">
+
+            <span class="info">
+                <label>Чат_ID</label>
+                <b>{{telegram.chat_id}}</b>
+            </span>
+    
+            <span class="info">
+                <label>Номер Телефона</label>
+                <b>{{telegram.phone}}</b>
+            </span>
+
+            <span class="info">
+                <label>Уведомлять</label>
+                <input type="checkbox" [(ngModel)]="telegram.alert">
+            </span>
+
+            <span class="info">
+                <label>Имя</label>
+                <input type="text" [(ngModel)]="telegram.name">
+            </span>
+
+            <span class="info">
+                <label>Прикрепить заведение</label>
+                <span>
+                    <select  [(ngModel)]="telegram.selected_place">
+                        <option [ngValue]="undefined">Выбирте заведение</option>
+                        <option [ngValue]="place" *ngFor="let place of places" >{{place.name}}</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;
+                    <b *ngIf="telegram.selected_place" class="add" (click)="placeAdd(telegram)">+</b>
+                </span>
+                <hr>
+                <span *ngFor="let place of telegram.places; let i = index">
+                    <b>{{place.name}}</b>
+                    &nbsp;&nbsp;&nbsp;
+                    <b class="delete" (click)="deletePlace(i, telegram)">✖</b>
+                </span>
+            </span>
+
+            <span class="info">
+                <button class="green" (click)="catch(telegram)">Сохранить</button>
+                <br>
+                <button class="red" (click)="catch(telegram._id)">Удалить</button>
+            </span>
+    
+        </div>
+    </ng-container>
+
+
+</main>

@@ -1,0 +1,91 @@
+<!-- Шапка -->
+<header>
+
+    <a [routerLink]="['/select-place']">
+        <img class="logo" src="../../assets/img/logo.svg" alt="Вкусные Суши">
+    </a>
+
+
+    <span class="links">
+
+        <a class="info link-nav" [routerLink]="['/menu']" routerLinkActive="active" >
+            <img class="icon" src="../../assets/img/menu.svg" alt="Меню">
+            <p>Меню</p>
+        </a>
+    
+        <a class="info link-nav" [routerLink]="['/order']" routerLinkActive="active" >
+            <img class="icon" src="../../assets/img/bag.svg" alt="Корзина">
+            <p *ngIf="!orderService.order.total_price">Мой Заказ</p>
+            <p *ngIf="orderService.order.total_price">{{orderService.order.total_price}} MDL</p>
+        </a>
+
+        <a *ngIf="!clientService.user" class="info link-nav" [routerLink]="['/login']" routerLinkActive="active" >
+            <img class="icon" src="../../assets/img/login.svg" alt="Войти">
+            <p>Войти</p>
+        </a>
+
+        <a *ngIf="clientService.user" class="info link-nav" [routerLink]="['/user']" routerLinkActive="active" >
+            <img class="icon" src="../../assets/img/login.svg" alt="Войти">
+            <p >Профиль</p>
+        </a>
+    
+        <a class="info link-nav"  [routerLink]="['/about-us']" routerLinkActive="active" >
+            <img class="icon" src="../../assets/img/phonebook.svg" alt="Позвонить">
+            <p>Позвонить</p>
+        </a>
+        
+    </span>
+
+    <span [routerLink]="['/select-place']" class="city-select-side">
+
+        <img  id="location" src="../../../assets/img/location.svg" alt="Локация">
+        
+        <span class="city-select">
+            <h2 class="city-name">{{orderService.selected_place.name}}</h2>
+            <small>Выберите Город</small>
+        </span>
+    </span>
+    
+</header>
+<!-- Шапка -->
+
+<!-- Контент -->
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
+<!-- Контент -->
+
+
+<!-- Футер -->
+<footer>
+
+    <span class="info ©">
+        <p>Сеть доставки еды «Вкусные суши»</p>
+        <b>© «Вкусные суши», &nbsp; 2022 г. </b>
+    </span>
+    
+    <span class="contacts">
+        <a *ngIf="this.orderService.selected_place" href="{{'tel:' + orderService.selected_place.phone }}">
+            <img class="icon" src="../../assets/img/phone.svg" alt="">
+            <p class="contact-info">{{this.orderService.selected_place.phone}}</p>
+        </a>
+    
+        <a *ngIf="this.orderService.selected_place" href="{{'https://www.google.ru/search?q=' + this.orderService.selected_place.address}}" target="_blank">
+            <img class="icon" src="../../assets/img/location.svg" alt="">
+            <p class="contact-info">{{this.orderService.selected_place.address}}</p>
+        </a>
+    
+        <a href="https://www.facebook.com/SushiMI.md" target="_blank">
+            <img class="icon" src="../../assets/img/facebook.svg" alt="">
+            <p class="contact-info">SushiMI.md</p>
+        </a>
+    
+        <a href="https://www.instagram.com/sushimi.md" target="_blank">
+            <img class="icon" src="../../assets/img/inst.svg" alt="">
+            <p class="contact-info">sushimi.md</p>
+        </a>
+    </span>
+
+
+</footer>
+<!-- Футер -->

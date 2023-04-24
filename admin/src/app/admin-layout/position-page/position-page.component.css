@@ -1,0 +1,247 @@
+main {
+    padding: 10px 0px;
+    width: 100%;
+    min-height: 300px;
+    font-family: 'Gilroy';
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-button {
+    padding: 10px;
+}
+
+.position-part {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px 0px;
+    min-height: 120px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+input {
+    text-align: center;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+h2 {
+    text-align: center;
+    font-size: 18px;
+}
+
+.dn {
+    display: none;
+}
+
+#edit-image {
+    width: 150px;
+}
+
+#image-button {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 100;
+    border: 1px solid black;
+    background-color: black;
+    color: red;
+    min-height: 40px;
+    width: 200px;
+}
+
+#image-button:hover {
+    background-color: white;
+}
+
+
+.position {
+    text-align: center;
+    font-family: 'Gilroy';
+    font-size: 16px;
+    min-height: 25px;
+    width: 200px;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+b {
+    cursor: pointer;
+    color: red;
+    text-decoration-line: underline;
+    font-size: 18px;
+}
+.element {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.controller {
+    cursor: pointer;
+    color: black;
+}
+
+.controller:hover {
+    color: red;
+}
+
+textarea {
+    width: 200px;
+    text-align: center;
+}
+
+select {
+    text-align: center;
+    text-align-last: center;
+    height: 25px;
+    width: 180px;
+    font-size: 16px;
+}
+
+.options {
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.option-title {
+    min-width: 15%;
+    border-right: 1px solid black;
+}
+
+.options-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.option {
+    margin: 0px 5px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+}
+
+
+
+.position-button {
+    margin-top: 10px;
+    font-size: 14px;
+    border: 1px solid black;
+    min-height: 30px;
+    width: 150px;
+}
+
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav {
+    border-bottom: 2px solid black;
+    padding: 10px 0px;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.position-cart {
+    cursor: pointer;
+    margin: 10px 0px;
+    width: 100%;
+    min-height: 150px;
+    background-color: black;
+    font-family: 'Gilroy';
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+}
+
+.position-cart:hover {
+    color: red;
+}
+
+h4 {
+    text-align: center;
+    min-width: 20%;
+}
+
+.cost {
+    color: red;
+}
+
+.image-preview {
+    width: 150px;
+}
+
+@media screen and (max-width: 1023px) {
+    main {
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    .position-part {
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    .options {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    
+    .option-title {
+        width: 100%;
+        display: flex;
+        border-right: 1px none;
+        border-top: 2px dashed black;
+        border-bottom: 2px dashed black;
+    }
+    
+    .options-container {
+        flex: auto;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .option {
+        padding: 15px 0px;
+        border-top: 1px solid red;
+        border-bottom: 1px solid red;
+        margin: 10px 0px;
+    }
+
+    nav {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .position-cart {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,231 @@
+main {
+    padding-top: 85px;
+    padding-bottom: 70px;
+    width: 100%;
+    min-height: calc(100vh - 155px);
+    z-index: 1;
+    font-family: 'Montserrat';
+    color: white;
+    display: flex;
+}
+
+
+/* Часть с Телефоном и Паролем */
+#phone-part {
+    flex: 0.3;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+label {
+    text-align: center;
+    border: 1px solid white;
+    padding: 10px;
+    font-size: 18px;
+}
+
+small {
+    text-align: center;
+}
+
+b {
+    font-size: 20px;
+}
+
+input[type=password] {
+    border-radius: 0;
+    text-align: center;
+    height: 20px;
+    width: 200px;
+}
+
+#change-password {
+    border-radius: 8px;
+    border: 1px solid #D6222D;
+    font-size: 16px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#change-password:hover {
+    background-color: #D6222D;
+}
+
+.info {
+    margin: 10px;
+}
+
+/* Часть с Информацией */
+#info-part {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+#user-part {
+    flex: 1;
+    padding: 15px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#user-name {
+    border-radius: 0;
+    text-align: center;
+    font-size: 14px;
+    height: 20px;
+}
+
+select {
+    border-radius: 0;
+    color: black;
+    font-size: 14px;
+    height: 28px;
+    width: 200px;
+    text-align: center;
+    text-align-last: center;
+}
+
+#button-part {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#save {
+    height: 40px;
+    width: 250px;
+    border: 1px solid #D6222D;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#save:hover {
+    background-color: #D6222D;
+}
+
+@media screen and (max-width: 1025px) { 
+
+    main {
+        padding-top: 65px;
+        min-height: calc(100vh - 135px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Часть с Телефоном и Паролем */
+    #phone-part {
+        flex: none;
+        width: 100%;
+        border-right: none;
+        flex-direction: row;
+        order: 0;
+    }
+
+    #button-part {
+        order: 1;
+    }
+
+    #info-part {
+        border-bottom: 2px solid white;
+        order: -1;
+    }
+
+    label {
+        padding: 5px;
+        font-size: 14px;
+    }
+    
+    b {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    #save {
+        height: 30px;
+        width: 200px;
+    }
+
+
+
+}
+
+@media screen and (max-width: 499px) { 
+
+    main {
+        padding-bottom: 100px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        padding: 3px;
+        font-size: 10px;
+    }
+
+    b {
+        text-align: center;
+        font-size: 12px;
+    }
+
+    small {
+        font-size: 10px;
+    }
+
+    input[type=password] {
+        text-align: center;
+        height: auto;
+        max-width: 120px;
+    }
+
+    #change-password {
+        border-radius: 3px;
+        max-width: 120px;
+        font-size: 10px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 12px;
+    }
+
+    #user-name {
+        font-size: 10px;
+    }
+    
+    select {
+        font-size: 10px;
+        width: auto;
+    }
+
+    #button-part {
+        width: 100%;
+        height: auto;
+        min-height: 150px;
+        flex-direction: column;
+    }
+
+    #save {
+        height: 30px;
+        width: 80%;
+    }
+
+
+}

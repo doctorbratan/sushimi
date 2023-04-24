@@ -1,0 +1,89 @@
+<ng-container *ngIf="!loading && places && places.length > 0">
+    <h4 
+    *ngIf="response.message" 
+    [ngClass]="{'edit-true': response.type, 'edit-false': !response.type}"
+    >{{response.message}}</h4>
+    <nav>
+        <button *ngIf="_id" class="green nav-button" (click)="catch()">Сохранить <br> Изменения Точки </button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="gray nav-button" [routerLink]="['/map']" >Отменить <br> &  Выйти</button>
+    </nav>
+    <aside>
+        <span class="info">
+            <b>Точка:</b>
+            <select [(ngModel)]="selected_place" (change)="findPlace()">
+                <option *ngFor="let place of places"  [ngValue]="place" >{{place.name}}</option>
+            </select>
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="info">
+            <b>Категория:</b>
+            <select *ngIf="!place_loading" [(ngModel)]="selected_category">
+                <option [ngValue]="undefined">Не выбранно</option>
+                <option *ngFor="let category of all_categories"  [ngValue]="category" >{{category.name}}</option>
+            </select>
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <button *ngIf="selected_category" class="green nav-button" (click)="addCategory()" >Добавить</button>
+    </aside>
+  
+    <section *ngIf="!place_loading && categories && categories.length > 0">
+        <div class="category-container" *ngFor="let category of categories; let i = index">
+            <div class="category">
+                <span class="info">
+                    &nbsp;
+                    <b *ngIf="i !== 0" (click)="changePosition(categories, i, i-1)"  class="controlles">▲</b>
+                    &nbsp;
+                    <b>{{i + 1}}</b>
+                    &nbsp;
+                    <b *ngIf="i+1 !== categories.length" (click)="changePosition(categories, i, i+1)" class="controlles">▼</b>
+                    &nbsp;
+                </span>
+    
+                <h3>{{category.name}}</h3>
+    
+                <span class="info">
+                    <b>Активно:</b>
+                    <input [(ngModel)]="category.display" type="checkbox">
+                </span>
+
+                <button (click)="remove(i, categories)" class="red">Удалить</button>
+            </div>
+            <ng-container *ngIf="category.sub_categories && category.sub_categories.length > 0">
+                <div *ngFor="let sub_category of category.sub_categories; let i = index" class="info sub-category">
+                    <span class="info">
+                        &nbsp;
+                        <b *ngIf="i !== 0" (click)="changePosition(category.sub_categories, i, i-1)"  class="controlles">▲</b>
+                        &nbsp;
+                        <b>{{i + 1}}</b>
+                        &nbsp;
+                        <b *ngIf="i+1 !== category.sub_categories.length" (click)="changePosition(category.sub_categories, i, i+1)" class="controlles">▼</b>
+                        &nbsp;
+                    </span>
+                    <h3>{{sub_category.name}}</h3>
+                    <span>
+                        <b>Активно:</b>
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" [(ngModel)]="sub_category.display">
+                    </span>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+    <h3 *ngIf="!place_loading && categories && categories.length == 0">Добавьте Первую Катеорию!</h3>
+    <ng-container *ngIf="place_loading" >
+        <div id="loading">
+            <loader></loader>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-container  *ngIf="loading">
+    <div id="loading">
+        <loader></loader>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!loading && places && places.length == 0">
+    <h3 id="empty" [routerLink]="['/place-edit']" >Создайте Первую Точку!</h3>
+</ng-container>

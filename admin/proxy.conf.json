@@ -1,0 +1,15 @@
+{
+    "/api/*": {
+        "target": "http://sushimi.herokuapp.com",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/uploads/*": {
+        "target": "http://sushimi.herokuapp.com",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

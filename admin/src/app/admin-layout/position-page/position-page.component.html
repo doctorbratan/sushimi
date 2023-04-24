@@ -1,0 +1,320 @@
+<main>
+
+    <!-- Оставная Информация -->
+    <div class="position-part">
+
+        <span class="info">
+            <ng-container *ngIf="response.message">
+                <h3 style="width: 150px; text-align: center;" [ngClass]="{'edit-true': response.type, 'edit-false': !response.type}">{{response.message}}</h3>
+            </ng-container>
+            &nbsp;&nbsp;&nbsp;
+            <img  [src]="imageSrc" id="edit-image" >
+          <!--   &nbsp;
+            <input type="file" class="dn" (change)="onFileUpload($event)" #input >
+            <button 
+            *ngIf="_id"
+            (click)="triggerClick()" 
+            id="image-button">Загрузить Картинку</button> -->
+            <!-- <b>http://drive.google.com/uc?id=</b> -->
+            &nbsp;
+            <span class="info">
+                <label>Ссылка картинки:</label>
+                <input type="text" [(ngModel)]="imageSrc">
+            </span>
+        </span>
+    
+        <span class="info">
+    
+            <span class="info">
+                <h2>Категория:</h2>
+                <b *ngIf="category">{{category.name}}</b>
+                <select [(ngModel)]="category" (ngModelChange)="sub_category = undefined">
+                    <option [ngValue]="undefined" >Отсуствутет</option>
+                    <option *ngFor="let item of categories" [ngValue]="item">{{item.name}}</option>
+                </select>
+            </span>
+    
+            <span class="info">
+                <h2>Подкатегория:</h2>
+                <b *ngIf="sub_category">{{sub_category.name}}</b>
+                <select [(ngModel)]="sub_category">
+                    <option [ngValue]="undefined" >Отсуствутет</option>
+                    <ng-container *ngFor="let item of sub_categories">
+                        <option *ngIf="category && item.category_id == category._id"  [ngValue]="item">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </span>
+
+            <span class="info">
+                <h2>Режим:</h2>
+                <select [(ngModel)]="kit">
+                    <option [ngValue]="false">Обычный</option>
+                    <option [ngValue]="true">Констурктор</option>
+                </select>
+            </span>
+    
+        </span>
+        
+        <span class="info">
+    
+            <span class="info">
+                <h2>Название Позиции:</h2>
+                <textarea cols="30" rows="3"  [(ngModel)]="name" ></textarea>
+            </span>
+            <br><br>
+            <span class="info">
+                <h2>Грамаж:</h2>
+                <span class="element" >
+                    <input type="text" [(ngModel)]="description" >
+                    &nbsp;
+                    <b> гр. </b>
+                </span>
+                <!-- <input type="text" [(ngModel)]="description" > -->
+                <!-- <textarea cols="20" rows="5" [(ngModel)]="description" ></textarea> -->
+            </span>
+            <br><br>
+            <span class="info">
+                <h2>Цена:</h2>
+                <input class="position" type="number" [(ngModel)]="cost" >
+                <span *ngIf="_id" class="info">
+                    <label>Изменить Цену в Точках:</label>
+                    <input [(ngModel)]="change_cost" type="checkbox">
+                </span>
+            </span>
+    
+        </span>
+
+        <span class="info">
+            <h2>Состав:</h2>
+            &nbsp;
+            <span class="element"  *ngFor="let element of composition; let i = index; trackBy:trackByIdx">
+                <input type="text" [(ngModel)]="composition[i]" >
+                &nbsp;
+                <b class="controller" (click)="deleteFromArray(composition, i)">❌</b>
+            </span>
+            &nbsp;
+            <b class="controller" (click)="addToComposition()">+</b>
+
+        </span>
+    
+      
+    </div>
+    <!-- Оставная Информация -->
+
+
+    <ng-container>
+        <div *ngFor="let kit_element of kits; let kit_index = index"  class="options">
+            <span class="option-title info">
+                <span class="info">
+                    <h2>Название Конфигурации:</h2>
+                    <input type="text" [(ngModel)]="kit_element.name">
+                </span>
+                &nbsp;
+                <span class="info">
+                    <h2>Выбор Пользователя:</h2>
+                    <select [(ngModel)]="kit_element.single">
+                        <option [ngValue]="true">Единичный</option>
+                        <option [ngValue]="false">Несколько</option>
+                    </select>
+                </span>
+                &nbsp;
+                <span class="info">
+                    <h2>Заполнение:</h2>
+                    <select [(ngModel)]="kit_element.required">
+                        <option [ngValue]="true">Обязательно</option>
+                        <option [ngValue]="false">Выборочно</option>
+                    </select>
+                </span>
+                &nbsp;
+                <span class="element">
+                    <button class="green" (click)="addOption(kit_index)">Добавить <br> Опцию </button>
+                    &nbsp;&nbsp;
+                    <button class="red" (click)="deleteFromArray(kits, kit_index)">Удалить <br> Конф-цию </button>
+                </span>
+                &nbsp;&nbsp;
+            </span>
+            <span class="options-container">
+                <span class="info option" *ngFor="let option of kit_element.options; let option_index = index">
+                    <span class="info">
+                        <span class="info">
+                            <label>Название опции:</label>
+                            <input type="text" [(ngModel)]="option.name" >
+                        </span>
+                        &nbsp;&nbsp;
+                        <span class="info">
+                            <label>Цена опции:</label>
+                            <input type="text" [(ngModel)]="option.cost" >
+                        </span>
+                        &nbsp;
+                        <button class="red edit-button" (click)="deleteFromArray(kit_element.options, option_index)" >Удалить <br> Опцию </button>
+                    </span>
+                </span>
+            </span>
+        </div>
+    </ng-container>
+    
+    <button class="green position-button" (click)="addToConstructor()">Добавить <br> Конфигурацию </button>
+    &nbsp;
+
+    
+    <!--  Рекомендации -->
+    <div class="options">
+        <span class="option-title info">
+            <h2>Рекомендации:</h2>
+        </span>
+        <span class="options-container">
+            <ng-container *ngIf="recomendations && recomendations.length > 0" >
+                <span class="info option" *ngFor="let recomendation of recomendations; let i = index">
+                    <span class="info">
+                        <label>{{recomendation.category}}</label>
+                        <label>{{recomendation.name}}</label>
+                        &nbsp;&nbsp;
+                        <button class="red edit-button" (click)="deleteRecomedation(i)">Удалить</button>
+                    </span>
+                </span>
+            </ng-container>
+        </span>
+    </div>
+    <!--  Рекомендации -->
+
+    <!--  Кнопки -->
+    <div class="position-part">
+            <button 
+            *ngIf="!pennding && !_id && category && name"
+             class="position-button green" 
+             (click)="catch()" >
+             Создать <br> Позицию</button>
+            <button 
+            *ngIf="!pennding &&  _id && category && name" 
+            class="position-button yellow" 
+            (click)="catch()"
+            >Редактировать <br> Позицию </button>
+            <button 
+            *ngIf="!pennding &&  _id" 
+            class="position-button red" 
+            (click)="delete()"
+            >
+            Удалить <br> Позицию  </button>
+            <button 
+            *ngIf="!pennding" 
+            class="position-button gray" 
+            (click)="clean()" >
+            Отменить <br> Редактирование </button>
+    </div>
+    <!--  Кнопки -->
+
+</main>
+
+<section>
+
+    <nav>
+
+        <span class="info">
+            <h2>Поиск по Категории:</h2>
+            <select [(ngModel)]="search_category" >
+                <option [ngValue]="undefined" >Все Позиции</option>
+                <option *ngFor="let item of categories" [ngValue]="item._id">{{item.name}}</option>
+            </select>
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="info">
+            <h2>Поиск по Названию:</h2>
+            <input type="text" [(ngModel)]="search_name">
+        </span>
+
+
+    </nav>
+
+    <ng-container *ngIf="loading" >
+        <loader></loader>
+    </ng-container>
+
+    <h3 *ngIf="!loading && positions && positions.length == 0">Создайте Первую Позицию!</h3>
+    <h3 *ngIf="!loading && !positions" class="error">Уппсс.. Ошибка!</h3>
+
+    <ng-container *ngIf="!loading && positions && positions.length > 0">
+        <h3 
+        *ngIf="(positions |  positionFilter: 
+        {category: search_category ? search_category : undefined,
+        name: search_name ? search_name : undefined }).length == 0"
+        >Позиций не найденно!</h3>
+        <ng-container *ngFor="let position of positions | positionFilter: 
+        {category: search_category ? search_category : undefined,
+        name: search_name ? search_name : undefined };">
+            <div class="position-cart">
+                <img [src]="position.imageSrc" class="image-preview">
+                <h4 *ngIf="position.sub_category">{{position.sub_category.name}}</h4>
+                <h4>{{position.name}}</h4>
+                <h4 class="cost">{{position.cost}} лей</h4>
+                <span class="info">
+                    <button  class="yellow edit-button" (click)="unZipPosition(position)" >Редактировать</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button *ngIf="kit" class="green edit-button" (click)="addRecomedation(position)">В Рекомендацию</button>
+                </span>
+            </div>
+        </ng-container>
+    </ng-container>
+
+</section>
+
+
+<!-- <span class="info">
+    <h2>Начинки:</h2>
+    <ng-container *ngIf="filling && filling.length > 0" >
+        <span class="option" *ngFor="let fill of filling">
+            <span class="info">
+                <label>Название:</label>
+                <input type="text" [(ngModel)]="fill.name">
+            </span>
+            <span class="info">
+                <label>Цена:</label>
+                <input type="text" [(ngModel)]="fill.name">
+            </span>
+            <span class="info">
+                <label>Первично:</label>
+                <input type="checkbox" [(ngModel)]="fill.default">
+            </span>
+        </span>
+    </ng-container>
+    <b *ngIf="filling && filling.length == 0">Добавьте Начинку</b>
+    <b class="add" (click)="addFill()" >✚</b>
+</span> 
+
+<span class="info">
+    <h2>Сосусы:</h2>
+    <ng-container *ngIf="sauces && sauces.length > 0" >
+        <span class="option" *ngFor="let sauce of sauces">
+            <span class="info">
+                <label>Название:</label>
+                <input type="text" [(ngModel)]="sauce.name">
+            </span>
+            <span class="info">
+                <label>Цена:</label>
+                <input type="number" [(ngModel)]="sauce.cost">
+            </span>
+            <span class="info">
+                <label>Первично:</label>
+                <input type="checkbox" [(ngModel)]="sauce.default">
+            </span>
+        </span>
+    </ng-container>
+    &nbsp;&nbsp;
+    <b class="add" (click)="addSouce()">✚</b>
+</span>
+
+<span class="info">
+    <h2>Дополнительно:</h2>
+    <ng-container *ngIf="options && options.length > 0" >
+        <span class="option" *ngFor="let option of options">
+            <span class="info">
+                <label>Название:</label>
+                <input type="text" [(ngModel)]="option.name">
+            </span>
+            <span class="info">
+                <label>Первично:</label>
+                <input type="checkbox" [(ngModel)]="option.default">
+            </span>
+        </span>
+    </ng-container>
+    <b class="add" (click)="addOption()">✚</b>
+</span> -->

@@ -1,0 +1,136 @@
+nav {
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 2px solid black;
+}
+
+button {
+    padding: 10px;
+}
+
+main {
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-cart {
+    margin-top: 10px;
+    width: 100%;
+    min-height: 100px;
+    padding: 10px 0px;
+    background-color: black;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+h4 {
+    padding: 8px;
+    border: 1px solid red;
+}
+
+b {
+    color: red;
+}
+
+button {
+    padding: 8px;
+    min-width: 100px;
+}
+
+.info {
+    margin: 5px;
+}
+
+.about-client {
+    min-width: 15%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+table.iksweb{
+	border-collapse:collapse;
+	border-spacing:0;
+	height: auto;
+}
+table.iksweb,table.iksweb td, table.iksweb th {
+	border: 1px solid white;
+}
+table.iksweb td,table.iksweb th {
+    text-align: center;
+	padding: 3px;
+	height: 15px;
+}
+
+table.iksweb td {
+    color: white;
+}
+table.iksweb th {
+	background: white; 
+	color: black; 
+	font-weight: bold;
+}
+
+.option {
+    margin-top: 5px;
+}
+
+.option-title {
+    color: red;
+}
+
+.order-total {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.buttons {
+    border-top: 1px solid white;
+}
+
+
+
+@media screen and (max-width: 499px) {  
+    
+    nav {
+        padding: 10px 0px;
+        flex-direction: column;
+    }
+
+    nav .info , nav button {
+        margin-top: 10px;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    b {
+        font-size: 12px;
+    }
+
+    table.iksweb{
+        font-size: 8px;
+    }
+
+    .option {
+        font-size: 8px;
+    }
+
+    small {
+        font-size: 8px;
+    }
+}

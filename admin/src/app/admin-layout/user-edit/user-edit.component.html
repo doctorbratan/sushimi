@@ -1,0 +1,81 @@
+<main>
+    <section id="users-container">
+
+        <h3 *ngIf="user_message && !loading">{{user_message}}</h3>
+
+        <div *ngFor="let user of users" (click)="unZipUser(user)" class="user-card">
+
+            <span class="info">
+                <label>Статус:</label>
+                <b>{{user.type}}</b>
+            </span>
+
+            <span class="info">
+                <label>Имя:</label>
+                <b>{{user.name}}</b>
+            </span>
+
+            <span class="info">
+                <label>Логин:</label>
+                <b>{{user.login}}</b>
+            </span>
+
+        </div>
+
+    </section>
+    <section id="edit-container">
+        <h3  *ngIf="_id" >Редактировать Пользователя</h3>
+        <h3  *ngIf="!_id" >Создать Пользователя</h3>
+        <ng-container *ngIf="response_message">
+            <br>
+            <h3 style="color: red">{{response_message}}</h3>
+            <br>
+        </ng-container>
+        <div id="form-container">
+
+            <span class="info">
+                <label>Логин:</label>
+                <input type="text" [(ngModel)]="login">
+            </span>
+
+            <span class="info">
+                <label *ngIf="!_id">Пароль:</label>
+                <label *ngIf="_id">Новый Пароль:</label>
+                <input type="text" [(ngModel)]="password">
+            </span>
+
+            <span class="info">
+                <label>Доступ:</label>
+                <input type="checkbox" [(ngModel)]="access">
+            </span>
+
+            <span class="info">
+                <label>Тип:</label>
+                <select [(ngModel)]="type">
+                    <option value="seller">Продавец</option>
+                    <option value="admin">Админ</option>
+                </select>
+            </span>
+
+            <span class="info">
+                <label>Имя:</label>
+                <input type="text" [(ngModel)]="name">
+            </span>
+
+            <span class="info">
+                <label>Привязать Точку:</label>
+                <select [(ngModel)]="place">
+                    <option [ngValue]="undefined">Выбирите точку</option>
+                    <option *ngFor="let place of places" [value]="place._id">{{place.name}}</option>
+                </select>
+            </span>
+
+        </div>
+        <div id="buttons">
+            <button class="green" *ngIf="!_id && !pennding" (click)="catch()">Добавить</button>
+            <button class="yellow" *ngIf="_id && !pennding" (click)="catch()">Редактировать</button>
+            <button class="red" *ngIf="_id && !pennding" (click)="delete()">Удалить</button>
+            <button class="gray" *ngIf="!pennding" (click)="clean()">Отменить</button>
+        </div>
+    </section>
+</main>

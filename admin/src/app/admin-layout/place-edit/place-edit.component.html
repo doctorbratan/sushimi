@@ -1,0 +1,108 @@
+<main *ngIf="!loading">
+    
+    <nav>
+    
+        <ng-container *ngFor="let place of places">
+            <h3 [ngClass]="{'selected-place': place._id == _id }" style="cursor: pointer" (click)="UnZipPlace(place)">{{place.name}}</h3>
+        </ng-container>
+        
+    </nav>
+    
+    <div class="edit-buttons">
+        <button *ngIf="!_id" (click)="catch()" class="green main-button">Создать <br> Точку </button>
+        <button *ngIf="_id" (click)="catch()" class="yellow main-button">Редактировать <br> Точку </button>
+        <button *ngIf="_id" (click)="delete()" class="red main-button">Удалить <br> Точку </button>
+    
+    </div>
+    
+    <!-- Настройки Общие -->
+    <div class="settings-container">
+    
+        <span class="info">
+            <h3>Название:</h3>
+            <input class="input-1" type="text" [(ngModel)]="name">
+        </span>
+    
+        <span class="info">
+            <h3>Адрес:</h3>
+            <input class="input-1" type="text" [(ngModel)]="address">
+        </span>
+    
+        <span class="info">
+            <h3>Номер:</h3>
+            <input class="input-1" type="text" [(ngModel)]="phone">
+        </span>
+    
+        <span class="info">
+            <h3>Координаты:</h3>
+            <input class="input-1" type="text" [(ngModel)]="map">
+        </span>
+    
+    </div>
+    
+    <!-- Настройки Времени -->
+    <div class="settings-container">
+    
+        <span class="info">
+            <h3>Время работы:</h3>
+            <span>
+                <b>от</b>
+                &nbsp;
+                <select class="time-select" [(ngModel)]="hour_start">
+                    <option [ngValue]="undefined">Отсуствует</option>
+                    <option value="00:10">00:10</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                </select>
+            </span>
+            &nbsp;
+            <span>
+                <b>до</b>
+                &nbsp;
+                <select class="time-select" [(ngModel)]="hour_end">
+                    <option [ngValue]="undefined">Отсуствует</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21300">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                    <option value="23:00">23:00</option>
+                    <option value="23:30">23:30</option>
+                    <option value="23:45">23:45</option>
+                    <option value="23:55">23:55</option>
+                </select>
+            </span>
+        </span>
+    
+        <span class="info">
+            <h3>Нерабочие Дни:</h3>
+            <ng-container *ngIf="rests.length > 0">
+                <ng-container *ngFor="let item of rests; let i = index; trackBy:trackByIdx" >
+                    &nbsp;
+                    <span>
+                        <input type="date" [(ngModel)]="rests[i]">
+                        &nbsp;
+                        <b class="delete" (click)="removeRest(i)">✖</b>
+                    </span>
+                    &nbsp;
+                </ng-container>
+            </ng-container>
+            <b class="controlles" (click)="pushRest()">✚</b>
+        </span>
+
+        <span class="info">
+            <h3>Активно:</h3>
+            <input  type="checkbox" [(ngModel)]="display">
+        </span>
+    
+    </div>
+    
+</main>
+    
+    <ng-container *ngIf="loading" >
+        <loader></loader>
+    </ng-container>
+    <h3 *ngIf="!loading && !places" class="error">Oopppsss, Ошибка Поиска...</h3>

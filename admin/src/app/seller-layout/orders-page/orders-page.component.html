@@ -1,0 +1,161 @@
+<main>
+    <h1 *ngIf="orders.length == 0 && !loading">Заказов нет!</h1>
+    <ng-container *ngIf="loading" >
+        <loader></loader>
+    </ng-container>
+    <ng-container *ngIf="orders.length > 0 && !loading">
+        <div *ngFor="let order of orders" class="order-cart">
+ 
+            <!-- Часть 1 -->
+            <span class="info">
+                <h4>Sushimi</h4>
+                <b>{{order.place.name}}</b>
+                <span class="info">
+                    &nbsp;
+                    <label>Заказан:</label>
+                    <b>{{order.start | date:"dd/MM/YYYY HH:mm"}}</b>
+                </span>
+                <span class="info">
+                    &nbsp;
+                    <label>Статус Заказа:</label>
+                    <b>{{order.status}}</b>
+                </span>
+                <span class="info">
+                    &nbsp;
+                    <label>Оплата:</label>
+                    <b>{{order.payment}}</b>
+                </span>
+                <span *ngIf="order.note" class="info">
+                    &nbsp;
+                    <label>Комментарий:</label>
+                    <b>{{order.note}}</b>
+                </span>
+            </span>
+
+            <!-- О Клиенте -->
+            <span class="info">
+                <h4>О Клиенте:</h4>
+                <span class="info">
+                    <label>Тип:</label>
+                    <b>{{order.type}}</b>
+                </span>
+                <ng-container *ngIf="order.user.name">
+                    &nbsp;
+                    <span class="info">
+                        <label>Имя:</label>
+                        <b>{{order.user.name}}</b>
+                    </span>
+                </ng-container>
+                &nbsp;
+                <span class="info">
+                    <label>Телефон:</label>
+                    <b>+373 {{order.user.phone}}</b>
+                </span>
+                <ng-container *ngIf="order.type === 'Доставка' ">
+                    &nbsp;
+                    <span class="info">
+                        <label>Город / Село:</label>
+                        <b>{{order.user.city.name}}</b>
+                    </span>
+                    &nbsp;
+                    <span class="info">
+                        <label>Адрес:</label>
+                        <b>{{order.user.address}}</b>
+                    </span>
+                </ng-container>
+                <span *ngIf="order.salle" class="info">
+                    &nbsp;
+                    <label>Скидка:</label>
+                    <b>{{order.salle}} %</b>
+                </span>
+            </span>
+            <!-- О Клиенте -->
+
+            <!-- О Заказе -->
+            <span class="info">
+                <h4>Заказ:</h4>
+                <table class="iksweb">
+                    <tbody>
+                        <tr>
+                            <th>Категория</th>
+                            <th>Подкатегория</th>
+                            <th>Позиция</th>
+                            <th>Дополнения</th>
+                            <th>Цена</th>
+                            <th>Кол-во</th>
+                            <th>Итого</th>
+                        </tr>
+                        <tr *ngFor="let item of order.list">
+                            <td>{{item.category.name}}</td>
+                            <td>
+                                <b *ngIf="item.sub_category && item.sub_category.name">{{item.sub_category.name}}</b>
+                                <b *ngIf="!item.sub_category">X</b>
+                            </td>
+                            <td>{{item.name}}</td>
+                            <td>
+                                <ng-container *ngIf="item.options && item.options.length > 0">
+                                    <span *ngFor="let option of item.options"  class="info option">
+                                        <small class="option-title">{{option.title}}</small>
+                                        <small>{{option.name}}</small>
+                                    </span>
+                                </ng-container>
+                                <b *ngIf="item.options && item.options.length == 0">X</b>
+                            </td>
+                            <td>{{item.cost}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="order-total">
+                    <br>
+                    <label *ngIf="order.salle">Итого: {{order.total}} лей</label>
+                    <label *ngIf="order.salle">Скидка: {{order.salle}} %</label>
+                    <label>К оплате: {{order.total_price}} лей</label>
+                </span>
+            </span>
+            <!-- О Заказе -->
+
+            <!-- Управление -->
+            <span class="info">
+
+                <span class="info">
+                    <label>Уведомлять</label>
+                    <input type="checkbox" [(ngModel)]="order.alert" (change)="Alert(order)">
+                </span>
+                <br>
+                <span class="info" *ngIf="!order.accept">
+                    <label>СМС о Принятие:</label>
+                    <span>
+                        <select [(ngModel)]="order.time">
+                            <option [ngValue]="undefined">Без времени</option>
+                            <option value="10 минут">10 минут</option>
+                            <option value="15 минут">15 минут</option>
+                            <option value="20 минут">20 минут</option>
+                            <option value="30 минут">30 минут</option>
+                            <option value="40 минут">40 минут</option>
+                            <option value="50 минут">50 минут</option>
+                            <option value="1 час">1 час</option>
+                            <option value="1:10 час">1:10 час</option>
+                            <option value="1:15 час">1:15 час</option>
+                            <option value="1:30 час">1:30 час</option>
+                        </select>
+                    </span>
+                    &nbsp;
+                    <button class="gray" (click)="Accept(order)">Принять</button>
+                </span>
+                <button *ngIf="order.accept && order.status !== 'В Пути' " class="gray" (click)="InWay(order._id)">В Пути</button>
+                <span *ngIf="order.accept" class="info buttons">
+                    <br>
+                    <button class="green" (click)="End(order)">Завершить</button>
+                </span>
+                <span  *ngIf="user.type === 'admin' ">
+                    <br>
+                    <button  class="red" (click)="delete(order._id)">Удалить</button>
+                </span>
+
+            </span>
+            <!-- Управление -->
+        </div>
+    </ng-container>
+</main>

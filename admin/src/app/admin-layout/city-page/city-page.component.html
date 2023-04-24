@@ -1,0 +1,42 @@
+<main>
+
+    <span class="info">
+
+        <ng-container *ngIf="response.message">
+            <h3 [ngClass]="{'edit-true': response.type, 'edit-false': !response.type}">{{response.message}}</h3>
+        </ng-container>
+
+        &nbsp;&nbsp;&nbsp;
+
+        <h2>Город / Село</h2>
+        <input class="category" type="text" [(ngModel)]="name">
+
+    </span>
+
+
+    <span class="info main-buttons">
+        <button *ngIf="!pending && !_id && name " class="category-button green" (click)="catch()">Создать <br> Поселение</button>
+        <button *ngIf="!pending && _id && name"  class="category-button yellow" (click)="catch()">Редактировать <br> Поселение </button>
+        <button *ngIf="!pending && _id" class="category-button red" (click)="delete()">Удалить <br> Поселение  </button>
+        <button *ngIf="!pending" class="category-button gray" (click)="clean()">Отменить</button>
+    </span>
+
+</main>
+
+<section>
+    
+    <ng-container *ngIf="cities && cities.length > 0">
+        <ng-container *ngFor="let city of cities">
+            <div class="category-container" (click)="unZip(city)">
+                <h3>{{city.name}}</h3>
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="loading" >
+        <loader></loader>
+    </ng-container>
+    <h3 *ngIf="!loading && cities && cities.length == 0">Создайте первое Поселение!</h3>
+    <h3 *ngIf="!loading && !cities" class="error">Oopppsss, Ошибка Поиска...</h3>
+
+</section>

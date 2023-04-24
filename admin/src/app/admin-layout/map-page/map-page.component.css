@@ -1,0 +1,40 @@
+main {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Gilroy';
+}
+
+a {
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+a:hover {
+    color: #D6222D;
+    text-decoration-line: underline;
+}
+
+hr {
+    border: 1px solid black;
+    width: 10%;
+}
+
+@media screen and (max-width: 1023px) {
+
+    main {
+        height: auto;
+        padding-top: 5px;
+    }
+
+    a {
+        font-size: 14px;
+    }
+    
+}

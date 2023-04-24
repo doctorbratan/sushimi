@@ -1,0 +1,146 @@
+main {
+    padding-top: 85px;
+    padding-bottom: 70px;
+    width: 100%;
+    min-height: 85vh;
+    font-family: 'Montserrat';
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 15px;
+}
+
+input {
+    height: 23px;
+}
+
+#tel {
+    border: 1px solid black;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    width: 200px;
+    font-size: 14px;
+}
+
+.check {
+    font-size: 12px;
+    width: 100px;
+    height: 32px;
+    background-color: #D6222D;
+}
+
+.check:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#catch {
+    border: 1px solid #D6222D;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 8px;
+    width: 300px;
+    height: 40px;
+}
+
+#catch:hover {
+    background-color: #D6222D;
+}
+
+a {
+    text-align: center;
+    color: white;
+    text-decoration-line: underline;
+}
+
+.politic {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+}
+
+#chexbox {
+    cursor: pointer;
+    width: 30px;
+    margin: 0;
+}
+
+
+.success {
+    color: greenyellow;
+}
+
+.error {
+    color: #D6222D;
+}
+
+@media screen and (max-width: 1025px) { 
+
+    main {
+        padding-top: 65px;
+    }
+
+}
+
+
+@media screen and (max-width: 499px) { 
+
+    main {
+        justify-content: flex-start;
+    }
+
+    h1 {
+        font-size: 16px;
+    }
+
+    h3 {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    b {
+        font-size: 10px;
+    }
+
+
+    #tel {
+        font-size: 10px;
+        width: 130px;
+
+    }
+
+
+    .check {
+        font-size: 10px;
+        width: 80px;
+        height: 28px;
+    }
+
+    #catch {
+        border-radius: 6px;
+        width: 200px;
+        height: 30px;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    a {
+        font-size: 12px;
+        width: 80%;
+    }
+
+ }

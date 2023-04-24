@@ -1,0 +1,79 @@
+<ng-container *ngIf="!loading_places">
+    <h4 
+    *ngIf="response.message" 
+    [ngClass]="{'edit-true': response.type, 'edit-false': !response.type}"
+    >{{response.message}}</h4>
+    
+    <nav>
+        <span class="info">
+            <b>Точка:</b>
+            <select [(ngModel)]="selected_place" (change)="findPlace()">
+                <option *ngFor="let place of places" [ngValue]="place">{{place.name}}</option>
+            </select>
+        </span>
+        &nbsp;&nbsp;
+        <button *ngIf="_id && !place_loading" class="green" (click)="catch()">Сохранить</button>
+        &nbsp;&nbsp;
+        <button  *ngIf="!place_loading" [routerLink]="['/map']" class="gray">Отменить <br> & Выйти </button>
+    </nav>
+
+    <ng-container *ngIf="!place_loading && _id" >
+        <article>
+            <select [(ngModel)]="selected_city">
+                <option [ngValue]="undefined">Выберите Локацию!</option>
+                <option *ngFor="let city of all_cities"   [ngValue]="city">{{city.name}}</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;
+            <button *ngIf="selected_city" class="green" (click)="addCity(selected_city)">Добавить</button>
+        </article>
+        <section *ngIf="!loading">
+            <h3 *ngIf="cities.length == 0">Добавьте первую локацию!</h3>
+            <div class="position-card" *ngFor="let city of cities; let i = index">
+
+                <span class="info">
+                    &nbsp;
+                    <b *ngIf="i !== 0" (click)="changePosition(cities, i, i-1)"  class="controlles">▲</b>
+                    &nbsp;
+                    <b >{{i + 1}}</b>
+                    &nbsp;
+                    <b *ngIf="(i + 1) !== cities.length" (click)="changePosition(cities, i, i+1)" class="controlles">▼</b>
+                    &nbsp;
+                </span>
+
+
+                <h3 class="position-name">{{city.name}}</h3>
+
+                <span class="info">
+                    <b>Цена:</b>
+                    <input type="number" min="0" [(ngModel)]="city.cost">
+                </span>
+                
+
+                <span class="info">
+                    <span class="info">
+                        <b>Активно:</b>
+                        &nbsp;
+                        <input class="input-2" [(ngModel)]="city.display" type="checkbox">
+                    </span>
+                </span>
+
+                <button class="red" (click)="deleteCity(i)">Удалить</button>
+
+            </div>
+        </section>
+        <div class="loader" *ngIf="loading">
+            <loader></loader>
+        </div>
+    </ng-container>
+    <div class="loader" *ngIf="place_loading">
+        <loader></loader>
+    </div>
+       
+
+  
+    
+</ng-container>
+
+<div class="loader" *ngIf="loading_places">
+    <loader></loader>
+</div>

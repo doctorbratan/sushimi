@@ -1,0 +1,56 @@
+<main>
+
+    <span class="info">
+        <h2>Категория</h2>
+        <input class="category" type="text" [(ngModel)]="category.name">
+        &nbsp;&nbsp;&nbsp;
+        <ng-container *ngIf="response.message">
+            <h3 [ngClass]="{'edit-true': response.type, 'edit-false': !response.type}">{{response.message}}</h3>
+        </ng-container>
+    </span>
+
+    <span class="info">
+        <h2>Подкатегории:</h2>
+        <input class="sub-category-input" type="text" [(ngModel)]="edited_subcategory">
+        &nbsp;
+        <button *ngIf="edited_subcategory" class="sub-category-button green" (click)="pushSubCategory()" >Добавить</button>
+
+        <ng-container *ngFor="let item of category.sub_categories; let i = index" >
+            <span class="row">
+                <input class="sub-category" [(ngModel)]="item.name" type="text" (ngModelChange)="item.changed = true" > 
+                &nbsp;&nbsp;&nbsp; 
+                <b class="delete" (click)="deleteSubCategory(i)">❌</b>
+            </span>
+        </ng-container>
+        
+    </span>
+
+    <span class="info main-buttons">
+        <button *ngIf="!pending && !category._id && category.name " class="category-button green" (click)="catch()">Создать <br> Категорию</button>
+        <button *ngIf="!pending && category._id && category.name"  class="category-button yellow" (click)="catch()">Редактировать <br> Категорию </button>
+        <button *ngIf="!pending && category._id" class="category-button red" (click)="delete()">Удалить <br> Категорию  </button>
+        <button *ngIf="!pending" class="category-button gray" (click)="clean()">Отменить</button>
+    </span>
+
+</main>
+<section>
+    <ng-container *ngIf="categories && categories.length > 0">
+        <ng-container *ngFor="let category of categories">
+            <div class="category-container" (click)="toEdit(category)">
+                <h3>{{category.name}}</h3>
+                <!--   
+                <span *ngIf="category.sub_categories.length > 0" class="info">
+                    <b *ngFor="let sub_category of category.sub_categories">{{sub_category.name}}</b>
+                </span> 
+                 -->
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="loading" >
+        <loader></loader>
+    </ng-container>
+    <h3 *ngIf="!loading && categories && categories.length == 0">Создайте первую Категорию!</h3>
+    <h3 *ngIf="!loading && !categories" class="error">Oopppsss, Ошибка Поиска...</h3>
+
+</section>

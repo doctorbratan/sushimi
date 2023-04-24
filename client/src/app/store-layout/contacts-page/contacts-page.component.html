@@ -1,0 +1,7 @@
+<main>
+    <section *ngIf="orderService.places && orderService.places.length > 0">
+        <ng-container *ngFor="let place of orderService.places">
+            <a   href="{{'tel:' + place.phone }}" class="phone-select">{{place.name}}</a>
+        </ng-container>
+    </section>
+</main>

@@ -1,0 +1,29 @@
+<main *ngIf="!global_message">
+    <h1>Регистрация</h1>
+    <br>
+    <h3>Номер Телефона</h3>
+    <br>
+    <span class="info">
+        <span>
+            <b>+373</b>
+            &nbsp;&nbsp;
+            <input id="tel" [(ngModel)]="phone" type="tel" (change)="numberCheck()">
+            &nbsp;&nbsp;
+            <button *ngIf="phone" class="check" (click)="numberCheck()">Проверить</button>
+        </span>
+        <br>
+        <label id="message" class="error" *ngIf="message">{{message}}</label>
+    </span>
+    <br><br>
+    <span class="politic">
+        <input [(ngModel)]="politic_agree" id="chexbox" type="checkbox"> 
+        &nbsp;
+        <a target="_blank" href="/docs/Политика Данных.pdf">Политика обработки персональных данных</a>
+    </span>
+    &nbsp;
+    <button *ngIf="!pennding && phone && politic_agree" id="catch" (click)="register()">Регистрация</button>
+</main>
+<main *ngIf="global_message">
+    <h1 class="success">{{global_message}}</h1>
+    <h3 [routerLink]="['/login']" >Войдите и настройте автозаполнение в личном профиле!</h3>
+</main>

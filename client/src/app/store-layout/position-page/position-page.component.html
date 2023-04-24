@@ -1,0 +1,98 @@
+<main *ngIf="!loading && !message"> 
+    <section id="main-info-container">
+
+        <span class="info">
+            <button [routerLink]="['/menu']"  id="exit">Обратно в Меню</button>
+            &nbsp;
+            <h1 class="position-name">{{position.name}}</h1>
+            <img class="position-image" [src]="position.imageSrc" [alt]="position.name">
+        </span>
+       
+        <span class="info" *ngIf="position.composition.length > 0">
+            <h3>Состав:</h3>
+            <p *ngFor="let composition of position.composition">
+                {{composition}} 
+            </p>
+            <h3>{{position.description}} гр.</h3>
+        </span>
+    </section>
+    <section *ngIf="position.kits.length > 0" id="main-options-container">
+        <div class="kit" *ngFor="let kit of position.kits">
+            <h3 class="kit-name">{{kit.name}}</h3>
+            <div class="option-container">
+                <button
+                    *ngFor="let option of kit.options; let option_index = index"
+                    [ngClass]="buttonAdditive(option)"
+                    (click)="selectOption(kit, option_index)"
+                 >
+                    <b>{{option.name}}</b>
+                   <!--  
+                    <ng-container *ngIf="option.cost !== 0" >
+                        <hr class="option-hr">
+                        <b>{{option.cost}}</b>
+                    </ng-container> 
+                    -->
+                </button>
+            </div>
+        </div>
+    </section>
+    <section id="main-add-container">
+
+        <div class="edit-container">
+            <span class="quantity-span">
+                <button 
+                class="quantity-controller"
+                (click)="changeQuantity(false)"
+                >-</button>
+                <h1>{{position.quantity}}</h1>
+                <button 
+                (click)="changeQuantity(true)"
+                class="quantity-controller">+</button>
+            </span>
+            <h1 class="edit-title">Кол-во</h1>
+        </div>
+
+        <button 
+        (click)="addToOrder()"
+        class="catch">
+            Добавить к Заказу
+        </button>
+
+        <div class="edit-container">
+            <h1>{{position.total}} <b style="color: #D6222D;">mdl</b></h1>
+            <h1 class="edit-title">Цена</h1>
+        </div>
+     
+    </section>
+</main>
+
+<div id="loading" *ngIf="loading" >
+    <loader></loader>
+</div>
+
+<div *ngIf="!loading && message" id="message">
+    <button [routerLink]="['/menu']"  id="exit">Обратно в Меню</button>
+    <br>
+    <h1 *ngIf="position.recomendations.length > 0">Рекомендации:</h1>
+    <div *ngIf="position.recomendations.length > 0" class="recomendation-container">
+        <div class="recomendation" *ngFor="let recomendation of position.recomendations">
+            <h3>{{recomendation.category}}</h3>
+            <img class="recomendation-image" [src]="recomendation.image" [alt]="recomendation.name">
+            <h3>{{recomendation.name}}</h3>
+            <br>
+            <span class="quantity-span">
+                <button 
+                (click)="changeRecomendationQuantity(recomendation, false)"
+                class="quantity-controller"
+                >-</button>
+                <h1>{{recomendation.quantity}}</h1>
+                <button 
+                (click)="changeRecomendationQuantity(recomendation, true)"
+                class="quantity-controller">+</button>
+            </span>
+            <h3>{{recomendation.total}} MDL</h3>
+            <br>
+            <button class="basket" (click)="addRecomandation(recomendation)" >Добавить</button>
+        </div>
+    </div>
+</div>

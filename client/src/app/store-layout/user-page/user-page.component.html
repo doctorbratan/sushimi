@@ -1,0 +1,88 @@
+<main>
+    <div id="phone-part">
+
+        <span class="info">
+            <label>Номер Телефона:</label>
+            &nbsp;
+            <b>+373 {{clientService.user.phone}}</b>
+        </span>
+
+        <span class="info">
+            <label>Изменить Пароль:</label>
+            &nbsp;
+            <ng-container *ngIf="password_message" >
+                <br>
+                <b>{{password_message}}</b>
+                <br>
+            </ng-container>
+            <span class="info">
+                <small>Старый пароль:</small>
+                <input type="password" [(ngModel)]="old_password">
+            </span>
+            &nbsp;
+            <span class="info">
+                <small>Новый пароль:</small>
+                <input type="password" [(ngModel)]="new_password">
+            </span>
+            &nbsp;
+            <span class="info">
+                <small>Повторите новый пароль:</small>
+                <input type="password" [(ngModel)]="repeat_password">
+            </span>
+            <ng-container *ngIf="!pennding && old_password && new_password && repeat_password && new_password === repeat_password" >
+                <br><br>
+                <button id="change-password" (click)="change_password()">Поменять Пароль</button>
+            </ng-container>
+        </span>
+
+    </div>
+    <div id="info-part">
+        <h1>Информация о пользователе</h1>
+        <div id="user-part">
+
+            <span class="info">
+                <label>Имя</label>
+                &nbsp;
+                <input [(ngModel)]="clientService.user.name" id="user-name" type="text">
+            </span>
+
+            <span class="info">
+                <label>Город / Село</label>
+                &nbsp;
+                <select [(ngModel)]="clientService.user.city">
+                    <option [ngValue]="undefined">Не выбранно!</option>
+                    <option *ngFor="let city of cities" [value]="city._id">{{city.name}}</option>
+                </select>
+            </span>
+
+            <span class="info">
+                <label>Адрес</label>
+                &nbsp;
+                <input [(ngModel)]="clientService.user.street" id="user-name" type="text">
+            </span>
+
+            <span *ngIf="clientService.user.salle" class="info">
+                <label>Скидка</label>
+                &nbsp;
+                <b>{{clientService.user.salle}} %</b>
+            </span>
+
+
+        <!--     <span class="info">
+                <label>Город Sushimi</label>
+                &nbsp;
+                <select [(ngModel)]="clientService.user.place">
+                    <option [ngValue]="undefined">Не выбранно!</option>
+                    <option *ngFor="let place of orderService.places" [value]="place._id">{{place.name}}</option>
+                </select>
+            </span> -->
+
+
+        </div>
+        <h1 *ngIf="global_message">{{global_message}}</h1>
+        <div id="button-part">
+            <button *ngIf="!pennding" id="save" (click)="save()">Сохранить</button>
+            <button *ngIf="!pennding" id="save" (click)="clientService.logout()">Выйти</button>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,118 @@
+<ng-container *ngIf="!loading_places">
+    
+    <h4 
+    *ngIf="response.message" 
+    [ngClass]="{'edit-true': response.type, 'edit-false': !response.type}"
+    >{{response.message}}</h4>
+
+    <nav>
+        <span class="info">
+            <b>Точка:</b>
+            <select [(ngModel)]="selected_place" (change)="findPlace()">
+                <option *ngFor="let place of places" [ngValue]="place">{{place.name}}</option>
+            </select>
+        </span>
+        &nbsp;&nbsp;
+        <button *ngIf="_id && !place_loading" class="green" (click)="catch()">Сохранить</button>
+        &nbsp;&nbsp;
+        <button  *ngIf="!place_loading" [routerLink]="['/map']" class="gray">Отменить <br> & Выйти </button>
+    </nav>
+
+    <ng-container *ngIf="!place_loading && _id" >
+        <article>
+            <h3 *ngIf="categories.length == 0" >Сначала Добавьте Категорию в Точку!</h3>
+            <select *ngIf="categories.length > 0" [(ngModel)]="selected_category" (change)="onCategoryChange()">
+                <option [ngValue]="undefined">Все Категории</option>
+                <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;
+            <select [(ngModel)]="selected_position">
+                <option [ngValue]="undefined">Выберите Позицию</option>
+                <ng-container *ngIf="selected_category" >
+                    <ng-container  *ngFor="let position of all_positions"  >
+                        <option *ngIf="selected_category._id === position.category._id" [ngValue]="position">{{position.name}}</option>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="!selected_category">
+                    <option *ngFor="let position of all_positions"   [ngValue]="position">{{position.name}}</option>
+                </ng-container>
+            </select>
+            &nbsp;&nbsp;&nbsp;
+            <button *ngIf="categories.length > 0 && selected_position" class="green" (click)="addPosition(selected_position)">Добавить</button>
+            &nbsp;&nbsp;
+            <span id="line">
+                <b>❙</b>
+                &nbsp;&nbsp;&nbsp;
+            </span>
+            <span class="info">
+                <b>Поиск по Названию:</b>
+                <input id="search" type="text" [(ngModel)]="search_text" >
+            </span>
+
+        </article>
+        <section *ngIf="!positions_loading">
+            <h3 *ngIf="(positions | positionFilter: {category: selected_category ? selected_category._id : undefined, name: search_text }).length == 0">Позиций не найденно!</h3>
+            <div class="position-card" *ngFor="let position of positions | 
+            positionFilter: {
+                category: selected_category ? selected_category._id : undefined,
+                name: search_text
+            };">
+
+                <span class="info">
+                    &nbsp;
+                    <b *ngIf="(position.order - 1) !== 0" (click)="changePosition(positions, position.order, position.order-1)"  class="controlles">▲</b>
+                    &nbsp;
+                    <b *ngIf="!selected_category">{{position.order}}</b>
+                    <input 
+                    *ngIf="selected_category" 
+                    (change)="manualChange(positions, position.order, position._id)"
+                    type="number" min="1" [max]="positions.length" 
+                    [(ngModel)]="position.order">
+                    &nbsp;
+                    <b *ngIf="position.order !== positions.length" (click)="changePosition(positions, position.order, position.order+1)" class="controlles">▼</b>
+                    &nbsp;
+                </span>
+
+                <img class="position-image" [src]="position.imageSrc">
+
+                <span class="info" >
+                    <b>{{position.category.name}}</b>
+                    <h3 class="position-name">{{position.name}}</h3>
+                    <h3 class="position-cost">{{position.cost}}</h3>
+                </span>
+
+               <!--  
+                <span class="info">
+                    <b *ngFor="let recomendation of position.recomendations">{{recomendation.name}}</b>
+                </span> 
+                -->
+
+
+                <span class="info">
+                    <span class="info">
+                        <b>Активно:</b>
+                        &nbsp;
+                        <input class="input-2" [(ngModel)]="position.display" type="checkbox">
+                    </span>
+                </span>
+
+                <button class="red" (click)="deletePosition(position.order)">Удалить</button>
+
+            </div>
+        </section>
+        <div class="loader" *ngIf="positions_loading">
+            <loader></loader>
+        </div>
+    </ng-container>
+    <div class="loader" *ngIf="place_loading">
+        <loader></loader>
+    </div>
+       
+
+  
+    
+</ng-container>
+
+<div class="loader" *ngIf="loading_places">
+    <loader></loader>
+</div>

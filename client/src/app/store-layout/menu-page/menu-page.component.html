@@ -1,0 +1,90 @@
+<main *ngIf="!orderService.loading_menu">
+    <nav>
+        <span class="categories">
+            <button 
+            *ngIf="clientService.user" 
+            [ngClass]="favoriteClass()"
+            (click)="show_favorites()"
+            ></button>
+            <ng-container *ngFor="let category of orderService.categories" >
+                <button 
+                 [ngClass]="buttonCategoryClass(category)"
+                 (click)="selectCategory(category)"
+                >{{category.name}}</button>
+            </ng-container>
+        </span>
+     
+    </nav>
+    <section>
+
+        <ng-container *ngIf="orderService.selected_category && orderService.selected_category.sub_categories && orderService.selected_category.sub_categories.length > 0">
+            <div  class="sub-category-container">
+                <ng-container *ngFor="let sub_category of orderService.selected_category.sub_categories" >
+                    <button 
+                    [ngClass]="buttonSubCategoryClass(sub_category)"
+                    (click)="selectSubCategory(sub_category)"
+                    >{{sub_category.name}}</button>
+                </ng-container>
+            </div>
+        </ng-container>
+      
+
+        <div class="positions" *ngIf="orderService.positions">
+
+            <h1 *ngIf="
+            (orderService.positions | positionFilter: 
+            {
+            category: orderService.selected_category ? orderService.selected_category._id : undefined,
+            sub_category: orderService.selected_sub_category ? orderService.selected_sub_category._id : undefined
+            }).length === 0 ">Добовьте позицию в избранное!</h1>
+
+            <ng-container  
+            *ngFor="let position of orderService.positions | positionFilter: 
+            {category: orderService.selected_category ? orderService.selected_category._id : undefined,
+            sub_category: orderService.selected_sub_category ? orderService.selected_sub_category._id : undefined
+            } ">
+                
+                <div class="position-cart">
+                    <h2>{{position.name}}</h2>
+
+                    <img [routerLink]="['/position', position._id]"  class="position-image" [src]="position.imageSrc" [alt]="position.name">
+
+                    <p  *ngIf="position.description">
+                        {{position.description}} гр.
+                    </p>
+                    <br>
+                    <span *ngIf="position.cost && !position.kit" class="quantity-span">
+                        <b 
+                        class="quantity-controller" 
+                        (click)="changeQuantity(position, '-')"
+                        >-</b>
+                        <b>{{position.quantity}}</b>
+                        <b 
+                        class="quantity-controller"
+                        (click)="changeQuantity(position, '+')"
+                        >+</b>
+                    </span>
+                    <p  *ngIf="position.composition.length > 0" [routerLink]="['/position', position._id]">
+                        <ng-container *ngFor="let composition of position.composition | slice:0:3">{{composition}},  </ng-container> ...
+                    </p>
+                    <span class="cost-span">
+                        <span class="cost-icons">
+                            <button *ngIf="!position.kit" class="basket" [disabled]="pennding" (click)="addToOrder(position)"></button>
+                            &nbsp;
+                            <button *ngIf="clientService.user"  [ngClass]="buttonFavories(position._id)" (click)="addToFavorites(position._id)" ></button>
+                        </span>
+                        <h2 *ngIf="position.cost" class="cost">{{position.total}} mdl</h2>
+                    </span>
+                    
+                </div>
+
+            </ng-container>
+        
+        </div>
+
+    </section>
+</main>
+
+<div id="loading" *ngIf="orderService.loading_menu" >
+    <loader></loader>
+</div>
